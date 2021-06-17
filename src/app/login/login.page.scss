@@ -1,0 +1,99 @@
+.back-circle {
+    z-index: -1;
+    width: 250px;
+    height: 500px;
+    background: rgb(57, 158, 57);
+    position: absolute;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+}
+
+ion-content {
+    --background: rgb(184, 248, 186);
+    .back-blob {
+    z-index: -1;
+    width: 70vh;
+    position: absolute;
+    right: -34%;
+    top: 0;
+    }
+    form {
+        margin-top: 100px;
+    }
+    .phonenumber {
+        background-color: white;
+        border-radius: 9vh;
+        margin-bottom:3vh;
+        margin-top: 20vh;
+        margin-right: 3vh;
+        margin-left: 1.2vh;
+        box-shadow: 0 1vh 3vh 0vh rgba(25, 55, 25, .8);
+        box-sizing: 0 1vh 3vh 0vh;
+        align-self: center;
+    }
+    .form-control {
+        display: block;
+        width: 80%;
+        background: transparent;
+        font-family: 'Roboto', monospace;
+        font-size: 3vh;
+        line-height: 1.2;
+        border: none;
+        outline: none;
+        align-self: center;
+        height: 7vh;
+        margin-left: 1.5vh;
+        
+    }
+    
+.btn {
+        display: block;
+        justify-content: center;
+        align-self: center;
+        margin-left: 2vh;
+        margin-right: 1px;
+        box-sizing: 0 6vh 9vh 0vh;
+        width: fit-content;
+        height: 7vh;
+        background-color: darkgreen;
+        border-radius: 8vh;
+        font-size: 20px;
+        color: white;
+        text-transform: uppercase;
+        margin-top: -120px;
+        margin-left: 5px;
+        line-height: 1.2;
+        //position: relative;
+        transition: all 0.4s;
+        box-shadow: 0 6vh 9vh 0vh #676864;
+    }
+}
+.ion-padding{
+    margin-top: -20px;
+}
+
+ion-toolbar {
+    --background: rgb(184, 248, 186);
+    ion-label {
+        border: darkblue;
+    }
+    p {
+        color: rgb(5, 27, 12);
+        font-family: monospace;
+        ion-checkbox {
+            --height : 2.5vh;
+             --width: 2.5vh;
+             --checkmark-color:white;
+             --background-checked: darkblue;
+             --background-color:white;
+        }
+        a {
+            color: darkblue;
+            font-family: monospace;
+        }
+    }
+}

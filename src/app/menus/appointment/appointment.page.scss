@@ -1,0 +1,44 @@
+ion-toolbar {
+    --background: forestgreen;
+}
+
+ion-fab-button {
+    --background: forestgreen;
+}
+
+ion-button {
+    --background: forestgreen;
+    align-self: center;
+    size: 20px;
+}
+ion-calender {
+    --color-selected: forestgreen;
+}
+ion-card{
+      background: forestgreen;
+}
+ion-label{
+    font-family: sans-serif;
+    font-weight:950;
+    font-size: 20px;
+    color: rgb(78, 6, 6);
+}
+
+
+.back-blob{
+    z-index: -1;
+    width: 200%;
+    height: 70vh;
+    position: absolute;
+    margin-right: -10vh;
+    right: -50%;
+    top:0;
+
+}
+img{
+    width: 10%;
+    height: 30px;
+}
+ion-input{
+    padding: 10px;
+}
