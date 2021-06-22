@@ -26,7 +26,7 @@ export const environment = {
       elementType: 'labels.icon',
       stylers: [
         {
-          visibility: 'on'
+          visibility: 'off'
         }
       ]
     },

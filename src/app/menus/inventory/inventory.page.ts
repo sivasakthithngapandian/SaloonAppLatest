@@ -38,55 +38,69 @@ export class InventoryPage implements OnInit {
     private userProvide: UserproviderService,
     private menuCtrl: MenuController) { }
 
- async ngOnInit() {
-    this.menuCtrl.enable(true);
-    this.menuCtrl.swipeGesture(false);
-    const loader = await this.userProvide.createLoader('Loading...');
-    loader.present();
-    this.api.category = [];
-    this.api.services = [];
-    this.api.getservice(this.userProvide.loggedUser.id).subscribe(data => {
-       console.log(data);
-       data[0].services.forEach(dat => {
-          this.api.choosen.push(dat);
+    async ngOnInit() {
+      this.menuCtrl.enable(true);
+      this.menuCtrl.swipeGesture(false);
+      const loader = await this.userProvide.createLoader('Loading...');
+      loader.present();
+      this.category = [];
+      this.api.choosen = [];
+      this.api.category = [];
+      this.api.services = [];
+      this.api.check = [];
+      this.api.getservice(this.userProvide.loggedUser.id).subscribe(data => {
+         console.log(data);
+         data[0].services.forEach(dat => {
+            this.api.choosen.push(dat);
+         });
+         
+         //this.api.services.push(this.choosen);
+         this.userProvide.getJSON().then((result) => {
+          this.category = result;
+          console.log(result);
+          this.category.forEach((dat1, index) => {
+            this.api.choosen.forEach(dat2 => {
+               if(dat1.category === dat2.category){
+                  this.category.splice(index, 1);
+               }
+            });
+         });
+         console.log(this.category);
+          loader.dismiss();
        });
-       
-       //this.api.services.push(this.choosen);
-       this.userProvide.getJSON().then((result) => {
-        this.category = result;
-        console.log(result);
-        loader.dismiss();
-     });
-    });
-  }
-
-  selectChange(ev:any){
-    if(ev.detail.checked === true){
-      this.api.category.push(ev.detail.value);
-    }else if(ev.detail.checked === false){
-      this.api.category.forEach((data, index) => {
-         if(data === ev.detail.value) { this.api.category.splice(index, 1);   } 
-      })
+      });
     }
-    //console.log(ev);
-    console.log(this.api.category);
-  }
-
-  next(){
-   this.category.filter(data => {
-        this.api.category.forEach(categ => {
-            if(data.category === categ){
-              this.api.services.push(data);
-            }
-        });
-    });
-    console.log(this.api.services);
-    this.category = [];
-    this.userProvide.getJSON().then((result) => {
-      this.category = result;
-      //console.log(result);
-   });
-    this.userProvide.goForward('/services');
-  }
+  
+  
+  
+    selectChange(ev:any){
+      if(ev.detail.checked === true){
+        this.api.category.push(ev.detail.value);
+      }else if(ev.detail.checked === false){
+        this.api.category.forEach((data, index) => {
+           if(data === ev.detail.value) { this.api.category.splice(index, 1);   } 
+        })
+      }
+      //console.log(ev);
+      console.log(this.api.category);
+    }
+  
+    next(){
+     this.category.forEach(data => {
+          this.api.category.forEach(categ => {
+              if(data.category === categ){
+                this.api.services.push(data);
+              }
+          });
+      });
+      console.log(this.api.services);
+      this.category = [];
+      this.userProvide.getJSON().then((result) => {
+        this.category = result;
+        //console.log(result);
+     });
+     console.log(this.api.services);
+      this.userProvide.goForward('/services');
+    }
   
 }

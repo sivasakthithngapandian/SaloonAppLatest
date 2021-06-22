@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import {ApiService} from 'src/app/services/api.service';
+import { UserproviderService } from 'src/app/services/userprovider.service';
 //import {AngularFireStorage} from '@angular/fire/storage'
 
 
@@ -13,24 +14,17 @@ export class PhotosPage implements OnInit {
   
 
   constructor(private camera : Camera,
-               private apiserve : ApiService) { }
+               private apiserve : ApiService,
+               private userProvide: UserproviderService) { }
 
-   options: CameraOptions = {
-    quality: 100,
-    sourceType:this.camera.PictureSourceType.PHOTOLIBRARY,
-    destinationType: this.camera.DestinationType.FILE_URI,
-    encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE
-  }
-  
+
   ngOnInit() {
   }
- Accesscamera(){
-  this.apiserve.openCamera();
+  async Accesscamera(){
+     await this.userProvide.openCamera();
   }
-  AccessGallery(){
-
-    this.apiserve.openGallery();
+  async AccessGallery(){
+    await this.userProvide.openAlbum();
   }
 
 }

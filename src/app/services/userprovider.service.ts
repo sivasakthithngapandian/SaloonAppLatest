@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { User,Services} from '../models/user';
 import { ApiService } from './api.service';
 import { HttpClient } from '@angular/common/http';
-import { Plugins } from '@capacitor/core';
+import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import { LoadingController, NavController, ToastController } from '@ionic/angular';
-const { Storage } = Plugins;
+import { StorageService } from '../services/firestorage.service';
+import { UUID } from 'angular2-uuid';
+const { Storage, Camera } = Plugins;
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,8 @@ export class UserproviderService {
               private http: HttpClient,
               private navCtrl: NavController,
               private loadCtrl: LoadingController,
-              private toastCtrl: ToastController) { }
+              private toastCtrl: ToastController,
+              private fireStorage: StorageService) { }
 
 
    getUserData(): User{
@@ -134,6 +137,60 @@ export class UserproviderService {
       }]
     })
     return toast;
+  }
+
+  async openCamera(){
+    const image = await Camera.getPhoto({
+        quality: 90,
+        source: CameraSource.Camera,
+        resultType: CameraResultType.Base64,
+        allowEditing: false
+    });
+
+    const raw = atob(image.base64String);
+    const bytes = new Array(raw.length);
+    for(var i=0; i<raw.length; i++){
+      bytes[i] = raw.charCodeAt(i);
+    }
+    
+    const arr = new Uint8Array(bytes);
+    const blob = new Blob([arr], { type: 'image/jpeg' });
+
+    const filename = UUID.UUID();
+    this.fireStorage.uploadContent(blob, filename).then(async success => {
+       console.log(success);
+       this.api.updateUser(this.loggedUser.id, { profile_img: success.url }).subscribe(res => {
+         this.loggedUser.profile_img = success.url;
+         this.api.img_load = true;
+      }); 
+    });
+  }
+
+  async openAlbum(){
+      const image = await Camera.getPhoto({
+        quality: 90,
+        source: CameraSource.Photos,
+        resultType: CameraResultType.Base64,
+        allowEditing: false
+    });
+
+    const raw = atob(image.base64String);
+    const bytes = new Array(raw.length);
+    for(var i=0; i<raw.length; i++){
+      bytes[i] = raw.charCodeAt(i);
+    }
+    
+    const arr = new Uint8Array(bytes);
+    const blob = new Blob([arr], { type: 'image/jpeg' });
+
+    const filename = UUID.UUID();
+    this.fireStorage.uploadContent(blob, filename).then(async success => {
+       console.log(success);
+       this.api.updateUser(this.loggedUser.id, { profile_img: success.url }).subscribe(res => {
+         this.loggedUser.profile_img = success.url;
+         this.api.img_load = true;
+       });
+    });
   }
 
 }

@@ -54,6 +54,9 @@ export class RegistrationPage implements OnInit {
 
   public myTimeFormsun: FormGroup
   private OpenTimesun: number = 1;
+  
+  public markerUrl = 'assets/loc-marker.png';
+  
 
   autoCompleteItems = [];
   searchTerm = '';
@@ -207,10 +210,10 @@ export class RegistrationPage implements OnInit {
 
 
   numColumns: number = 2;
-  numOptions: number = 144;
+  numOptions: number = 156;
 
   addControltime1() {
-    this.OpenTimeMon++
+    this.OpenTimeMon++;
     this.myTimeFormMon.addControl('OpenTimewed' + this.OpenTimeMon, new FormControl('', Validators.required))
   }
   removeControlTime1(control) {
@@ -410,7 +413,8 @@ export class RegistrationPage implements OnInit {
     this.firestore.update('users', client.id, client).then(res => {
       console.log('result', res)
       //  this.router.navigate(['/registration']);
-      this.router.navigate(['/home'])
+      this.api.img_load = false;
+      this.userProvide.goToNew('/home');
     });
   }
 
@@ -614,11 +618,11 @@ export class RegistrationPage implements OnInit {
       console.log('the action sheet has already closed');
     });
   }
-  Accesscamera() {
-    this.api.openCamera();
+  async Accesscamera() {
+     await this.userProvide.openCamera();
   }
-  AccessGallery() {
-    this.api.openGallery();
+  async AccessGallery() {
+    await this.userProvide.openAlbum();
   }
   skip() {
     this.router.navigate(['/home'])

@@ -6,6 +6,7 @@ export interface User{
     mobile: string; 
     latitude?:number;
     longitude?: number;
+    profile_img?: string;
 }
 
 export interface Services{

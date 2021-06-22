@@ -1,9 +1,9 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+            <ion-back-button color="light"></ion-back-button>
         </ion-buttons>
-        <ion-title>opening Hours</ion-title>
+        <ion-title color="light">Opening Hours</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -20,19 +20,20 @@
         <form [formGroup]="myTimeFormMon" class="d-flex flex-column justify-content-center align-items-center">
             <div class="d-flex justify-content-between align-items-center" *ngFor="let control of myTimeFormMon.controls | keyvalue; let i=index" style="padding-right: 9px; padding-left: 40px;">
                 <!-- <ion-label class="form-control" (click)="Tusdaytime()">{{value3}}</ion-label> -->
-                <ion-input *ngIf="checked" size="4" class="form-control" [(ngModel)]="openingTime.OpeningHours.Monday || value2" (click)="Tusdaytime()" style="padding-bottom: 5px; padding-top: 5px; width: 110px; height: 35px;">
+                <ion-input *ngIf="openingTime.OpeningHours.Monday !== 'closed'"  class="form-control"  [value]="openingTime.OpeningHours.Monday" (click)="Tusdaytime()">
                   <!-- {{openingTime.OpeningHours.Monday}} -->
                 </ion-input>
-                <ion-icon *ngIf="checked" style="margin-left: 0.25rem;" (click)="removeControlTime(control)" name="close-circle">
+                <ion-icon *ngIf="openingTime.OpeningHours.Monday !== 'closed'" style="margin-left: 0.25rem;" (click)="removeControlTime(control)" name="close-circle">
                 </ion-icon>
             </div>
         </form>
 
-        <div *ngIf="!checked" class="d-flex align-items-center">
+        <div *ngIf="openingTime.OpeningHours.Monday === 'closed'" class="d-flex align-items-center">
             <ion-label>Closed</ion-label>
         </div>
 
-        <div *ngIf="checked" class="addbutton d-flex align-items-center flex-column justify-content-center">
+
+        <div *ngIf="openingTime.OpeningHours.Monday !== 'closed'" class="addbutton d-flex align-items-center flex-column justify-content-center">
             <ion-icon name="add-outline" (click)="addControltime()"></ion-icon>
         </div>
     </ion-row>

@@ -65,13 +65,13 @@ export class OpeningPage implements OnInit {
   value5 = '9:00-18:00';
   value6 = '9:00-18:00';
 
-  checked = false
-  checked1 = false
-  checked2 = false
-  checked3 = false
-  checked4 = false
-  checked5 = false
-  checked6 = false
+  checked = false;
+  checked1 = false;
+  checked2 = false;
+  checked3 = false;
+  checked4 = false;
+  checked5 = false;
+  checked6 = false;
 
   public openingTime: any=[];
   
@@ -133,7 +133,7 @@ export class OpeningPage implements OnInit {
   }
 
   removeControlTime(control) {
-    this.OpenTime--
+    this.OpenTime--;
     this.myTimeForm.removeControl(control.key)
     // this.add = false;
   }

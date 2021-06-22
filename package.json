@@ -27,6 +27,7 @@
     "@ionic-native/core": "^5.31.1",
     "@ionic-native/geolocation": "^5.31.1",
     "@ionic/angular": "^5.5.2",
+    "@ionic/pwa-elements": "^3.0.2",
     "@ng-bootstrap/ng-bootstrap": "^9.1.0",
     "amazing-time-picker": "^1.8.0",
     "angular2-uuid": "^1.1.1",

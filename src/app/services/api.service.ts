@@ -58,6 +58,9 @@ export class ApiService {
   public category= [];
   public services:any = [];
   public choosen:any = [];
+  public check:any = [];
+
+  public img_load = false;
 
   constructor(private camera: Camera,
     private storageServ: StorageService,
@@ -85,6 +88,10 @@ export class ApiService {
   updateService(id, data): Observable<any>{
       return from(this.firestore.updateInnerId('users',id,'services',data,'categories','services'));
   }  
+
+  updateUser(id, data): Observable<any>{
+    return from(this.firestore.update('users',id,data));
+  }
 
   getservice(id): Observable<any>{
     return this.firestore.getServices('users',id,'services','categories');

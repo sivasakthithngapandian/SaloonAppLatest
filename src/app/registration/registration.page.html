@@ -302,7 +302,7 @@
                         <ion-row class="ion-padding-bottom">
                             <ion-col size="12">
                                 <agm-map [latitude]="api.latitude" [longitude]="api.longitude" [zoom]="zoom" [disableDefaultUI]="disableDefaultUI" [zoomControl]="zoomControl" [fullscreenControl]="fullscreenControl" [styles]="styles">
-                                    <agm-marker [latitude]="api.latitude" [longitude]="api.longitude"></agm-marker>
+                                    <agm-marker [latitude]="api.latitude" [longitude]="api.longitude" [iconUrl]="markerUrl"></agm-marker>
                                 </agm-map>
                             </ion-col>
                         </ion-row>
@@ -671,11 +671,12 @@
             </div> -->
 
             <div class="">
-                <img src="assets/Add_Photo.png" alt="socialmedia-logo" (click)="addPhoto()">
+                <img *ngIf="!api.img_load" src="assets/Add_Photo.png" alt="socialmedia-logo">
                 <ion-button class="btnSubmit textBold ion-text-uppercase ion-padding-horizontal" (click)="addPhoto()">
                     Add Photo
                 </ion-button>
             </div>
+            <ion-img *ngIf="api.img_load" [src]="userProvide.loggedUser.profile_img"></ion-img>
             </ion-card>
             </ion-content>
 
