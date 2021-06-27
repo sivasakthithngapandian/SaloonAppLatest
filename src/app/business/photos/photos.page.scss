@@ -1,0 +1,111 @@
+
+.centerText {
+    top: calc(5% + 4px);
+    position: absolute;
+    width: 90%;
+    z-index: 111;
+    right: 5%;
+    /* left: 0; */
+    /* margin: auto; */
+    text-align: center;
+    font-size: 13px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 7px;
+    color: white;
+    font-weight: bold;
+    padding: 3px 0;
+}
+
+ion-fab-button{
+    --background: forestgreen;
+    --color: #fff;
+    --transition: all 0.5s ease;
+}
+
+.emptyDiv{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    font-size: 25px;
+    color: #444;
+}
+
+.ion-thumbnail {
+    background: forestgreen;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    width: 80px;
+    margin-top: 8px;
+    height: 150px;
+ }
+ .icon-thumbnail {
+    font-size: 75px;
+    color: white;
+ }
+ .div1 {
+    width: 200px;
+    background: var(--ion-color-light-shade);
+    height: 70px;
+    margin-left: 18px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+ }
+ .div2 {
+    width: 200px;
+    background: var(--ion-color-light-shade);
+    height: 20px;
+    margin-left: 18px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+ }
+ .div3 {
+    width: 200px;
+    background: var(--ion-color-light-shade);
+    height: 20px;
+    margin-left: 18px;
+    border-radius: 10px;
+ }
+ ion-card {
+    border-radius: 10px;
+ }
+ .card-bottom-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 16px;
+    padding-right: 10px;
+    color: forestgreen;
+    background: white;
+ }
+ 
+ion-item {
+    --inner-border-width: 0 0 0px 0;
+}
+
+.imgCard{
+     box-shadow: none !important;
+     
+  .img_fonts{
+    font-weight: bolder;
+  } 
+
+  .img{
+    justify-content: center;
+    height: 250px;
+    border: 2px dotted lightgray;
+   }
+ }
+
+ion-card.margin-top-10 {
+    margin-top: 10px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+} 

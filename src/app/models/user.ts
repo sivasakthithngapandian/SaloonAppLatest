@@ -19,3 +19,11 @@ export interface Services{
 export interface dummy {
     name: String;
 }
+
+export interface workPhoto{
+    product1?: string;
+    product2?: string;
+    product3?: string;
+    product4?: string;
+    product5?: string;
+}

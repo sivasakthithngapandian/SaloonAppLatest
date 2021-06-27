@@ -85,8 +85,16 @@ export class ApiService {
     return from(this.firestore.createInnerId('users',id,'services',data,'categories'));
   }
 
+  createWorkPhotos(id, imgid, data): Observable<any>{
+    return from(this.firestore.createInnerId('users',id,'gallery',data,imgid));
+  }
+
+  UpdateWorkPhotos(id, imgid, data): Observable<any>{
+    return from(this.firestore.updateInnerId('users',id,'gallery',data,imgid));
+  }
+
   updateService(id, data): Observable<any>{
-      return from(this.firestore.updateInnerId('users',id,'services',data,'categories','services'));
+      return from(this.firestore.updateInnerId('users',id,'services',data,'categories'));
   }  
 
   updateUser(id, data): Observable<any>{
@@ -94,7 +102,11 @@ export class ApiService {
   }
 
   getservice(id): Observable<any>{
-    return this.firestore.getServices('users',id,'services','categories');
+    return this.firestore.getServices('users',id,'services');
+  }
+
+  getWorkPhotos(id): Observable<any>{
+    return this.firestore.getServices('users',id,'gallery');
   }
   //updateprofile
   updateprofile(id, data): Observable<any>{

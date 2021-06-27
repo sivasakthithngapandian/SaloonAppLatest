@@ -24,11 +24,11 @@ export class FirestoreService {
     return this.store.doc<T>(`${collection}/${id}/${subcollection}/${idsub}`).set(this.addCreated(subid));
   }
 
-  public updateInnerId<T extends BaseDatabaseModels>(collection: string, id: string, subcollection: string, subid: T, idsub: string, innerel: string): Promise<void>{
+  public updateInnerId<T extends BaseDatabaseModels>(collection: string, id: string, subcollection: string, subid: T, idsub: string): Promise<void>{
     return this.store.doc<T>(`${collection}/${id}/${subcollection}/${idsub}`).update(this.updateCreated(subid));
   }
 
-  public getServices<T extends BaseDatabaseModels>(collection: string, id: string, subcollection: string, idsub:string): Observable<T[]>{
+  public getServices<T extends BaseDatabaseModels>(collection: string, id: string, subcollection: string): Observable<T[]>{
     return this.store.collection<T>(`${collection}/${id}/${subcollection}`).valueChanges({ idField: 'id' }).pipe(take(1));
   }
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { ApiService } from 'src/app/services/api.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
-import { PickerController } from '@ionic/angular'
+import { AlertController, PickerController } from '@ionic/angular'
 import { PickerOptions } from '@ionic/core'
 import { UserproviderService } from 'src/app/services/userprovider.service';
 
@@ -31,7 +31,7 @@ export class ServicePage implements OnInit {
   servicelist = [];
   categoriesdata: any;
   categoriesdatalist = [];
-
+  serviceList:any = [];
   timeget: any[] = [
     [
       '5minutes', '10minutes', '15minutes', '20minutes', '25minutes', '30minutes', '35minutes', '40minutes', '45minutes',
@@ -51,7 +51,8 @@ export class ServicePage implements OnInit {
     private api: ApiService,
     private pickercontrl: PickerController,
     private userProvideserv: UserproviderService,
-    private firestore: FirestoreService) { }
+    private firestore: FirestoreService,
+    private alertCtrl: AlertController) { }
 
   ngOnInit() {
     //this.servicedata = this.userProvideserv.serviceDetails;
@@ -162,4 +163,63 @@ export class ServicePage implements OnInit {
     }
     return options;
   }
+
+  async swipeEnd(item){
+     const alert = await this.alertCtrl.create({
+       message: `<b>Edit Services:-</b>`,
+       inputs:[
+        {
+         label: "Service",
+         type: "text",
+         name: "service",
+         value: item.service
+       },
+       {
+         label: "Duration (mins)",
+         type: "text",
+         name: "time",
+         placeholder: "Duration (mins)",
+         value: "" 
+       },
+       {
+        label: "Price (₹)",
+        type: "text",
+        name: "price",
+        placeholder: "Price (₹)",
+        value: ""
+       }],
+       buttons:[{
+         text: 'Cancel',
+         role: 'cancel',
+         handler: async (data: any) => {
+            console.log(`Cancel Clicked`);
+            await alert.dismiss();
+         }
+       },
+       {
+         text: 'Submit',
+         handler: async (datang:any) => {
+            //console.log(data);
+            this.api.serviceDatalist.forEach(data => {
+              data.services.forEach(dat => {
+                 dat.services.forEach((csv, index) => {
+                    if(csv.service === item.service){
+                      csv.time = datang.time;
+                      csv.price = datang.price;
+                    }   
+                 });
+                 this.serviceList.push(dat);
+                 console.log(this.serviceList);
+              });
+            });
+            this.api.updateService(this.userProvideserv.loggedUser.id, { services: this.serviceList }).subscribe(res => {
+                console.log("Service Updated", this.serviceList);
+            });
+            await alert.dismiss();
+         }
+       }]
+     });
+     await alert.present();
+  }
+
 }

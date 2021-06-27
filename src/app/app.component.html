@@ -11,9 +11,9 @@
                 <div class="avatar">
                     <ion-menu-toggle autoHide="true">
                         <ion-avatar style="height: 120px; width: 120px;" routerLink="/profile">
-                            <img src="assets/avatar.png">
+                            <ion-img [src]="userProvide.loggedUser.profile_img ? userProvide.loggedUser.profile_img : 'assets/avatar.png'"></ion-img>
                              <div class="mob">
-                                <ion-label class="mob" style="size: 30;">{{mobilenu}}</ion-label>
+                                <ion-label class="mob" style="font-size:20;">{{loggedInUser.name}}</ion-label>
                             </div> 
                         </ion-avatar> 
                     </ion-menu-toggle>

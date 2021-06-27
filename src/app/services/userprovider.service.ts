@@ -14,7 +14,10 @@ const { Storage, Camera } = Plugins;
 export class UserproviderService {
 
   public loggedUser: User;
-  public serviceDetails:Services
+  public serviceDetails:Services;
+  public loadPhoto:boolean;
+  public placeImage:any;
+  public placeId:any;
 
   constructor(private api: ApiService,
               private http: HttpClient,
@@ -191,6 +194,81 @@ export class UserproviderService {
          this.api.img_load = true;
        });
     });
+  }
+
+  async openCameraForWorkPlace(){
+    let id;
+    this.placeImage = '';
+    this.placeId = '';
+    const image = await Camera.getPhoto({
+      quality: 90,
+      source: CameraSource.Camera,
+      resultType: CameraResultType.Base64,
+      allowEditing: false
+  });
+
+  const raw = atob(image.base64String);
+  const bytes = new Array(raw.length);
+  for(var i=0; i<raw.length; i++){
+    bytes[i] = raw.charCodeAt(i);
+  }
+  
+  const arr = new Uint8Array(bytes);
+  const blob = new Blob([arr], { type: 'image/jpeg' });
+  const filename = UUID.UUID();
+  var random =  '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  for(var i=0; i<10; i++){
+    random += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  this.fireStorage.uploadContent(blob, filename).then(async success => {
+     console.log(success);
+     this.placeId = random;
+     this.api.createWorkPhotos(this.loggedUser.id, this.placeId, { place_img: success.url }).subscribe(res => {
+      //  this.loggedUser.profile_img = success.url;
+      //  this.api.img_load = true;
+      this.placeImage = success.url;
+       this.loadPhoto = true;
+    }); 
+  });
+
+  }
+
+  async openAlbumForWorkPlace(){
+    let id;
+    this.placeImage = '';
+    this.placeId = '';
+    const image = await Camera.getPhoto({
+      quality: 90,
+      source: CameraSource.Photos,
+      resultType: CameraResultType.Base64,
+      allowEditing: false
+  });
+
+  const raw = atob(image.base64String);
+  const bytes = new Array(raw.length);
+  for(var i=0; i<raw.length; i++){
+    bytes[i] = raw.charCodeAt(i);
+  }
+  
+  const arr = new Uint8Array(bytes);
+  const blob = new Blob([arr], { type: 'image/jpeg' });
+  const filename = UUID.UUID();
+  var random =  '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  for(var i=0; i<10; i++){
+    random += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  this.fireStorage.uploadContent(blob, filename).then(async success => {
+     console.log(success);
+     this.placeId = random;
+     this.api.createWorkPhotos(this.loggedUser.id, this.placeId ,{ place_img: success.url }).subscribe(res => {
+      //  this.loggedUser.profile_img = success.url;
+      //  this.api.img_load = true;
+      this.placeImage = success.url;
+      this.loadPhoto = true;
+     });
+  });
   }
 
 }
